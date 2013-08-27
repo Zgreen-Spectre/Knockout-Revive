@@ -45,10 +45,12 @@ if ((!r_player_handler1) and (r_handlerCount == 0)) then {
 			_timeout = _timeout - 1;
 		};
 		
-		if ((r_player_blood < 1000) and (r_player_unconscious)) then {
+		if((r_player_blood < 100) and (r_player_unconscious)) then {
 			titleText ["You've been put into a coma, have a partner revive you with an epi-pen or mouse wheel up to commit suicide!", "PLAIN"];
+			_unit setVariable["startcombattimer", 1];
+			r_player_blood = 95;
 		};
-		
+			
 		if (r_player_timeout > 0) then {
 			r_player_timeout = r_player_timeout - 1;
 		} else {

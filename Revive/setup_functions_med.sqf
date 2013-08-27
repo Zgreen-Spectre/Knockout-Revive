@@ -34,14 +34,13 @@ fnc_usec_damageUnconscious = {
 	_unit = _this select 0;
 	_damage = _this select 1;
 	_inVehicle = (vehicle _unit != _unit);
-	if ((_unit == player) and (r_player_blood < 1000) and (!r_player_unconscious)) then {
+	if ((_unit == player) and (r_player_blood < 100) and (!r_player_unconscious)) then {
 		_unit switchMove "Die";
 		_unit setVariable ["NORRN_unconscious", true, true];
 		r_player_timeout = round(300000);
 		r_player_unconscious = true;
 		player setVariable["medForceUpdate",true,true];
 		player setVariable ["unconsciousTime", r_player_timeout, true];
-		titleText ["You've been put into a coma, have a partner revive you with an epi-pen or mouse wheel up to commit suicide!", "PLAIN"];
 	}else{
 		r_player_timeout = round((((random 2) max 0.1) * _damage) * 20);
 		r_player_unconscious = true;
@@ -177,27 +176,26 @@ fnc_usec_playerHandleBlood = {
 			r_player_blood = r_player_blood + _bloodPerSec;
 			_elapsedTime = _elapsedTime + 1;
 
-			if ((r_player_blood < 1000) and (!r_player_unconscious)) then {
+			if ((r_player_blood < 100) and (r_player_injured) and (!r_player_unconscious)) then {
 				_unit switchMove "Die";
 				[_unit,300000] call fnc_usec_damageUnconscious;
 				_unit setVariable ["NORRN_unconscious", true, true];
 				r_player_timeout = round(300000);
 				r_player_unconscious = true;
-				dayz_sourceBleeding = objNull;
-				call fnc_usec_resetWoundPoints;
-				r_player_injured = false;
-				_id = [player,player] execVM "\z\addons\dayz_code\medical\publicEH\medBandaged.sqf";
 				player setVariable["medForceUpdate",true,true];
 				player setVariable ["unconsciousTime", r_player_timeout, true];
-				titleText ["You've been put into a coma, have a partner revive you with an epi-pen or mouse wheel up to commit suicide!", "PLAIN"];
 			};
-			if (r_player_blood < 1000) then {
+			if ((r_player_blood < 100) and (r_player_unconscious)) then {
 				r_player_injured = false;
 				dayz_sourceBleeding = objNull;
 				call fnc_usec_resetWoundPoints;
 				_id = [player,player] execVM "\z\addons\dayz_code\medical\publicEH\medBandaged.sqf";
 				player setVariable["medForceUpdate",true,true];
 				};
+				
+			if ((_inVehicle) and (r_player_blood < 100)) then {
+				player setDamage 1;
+			};
 			
 			
 			if (_elapsedTime > _bleedTime) then {

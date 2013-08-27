@@ -297,19 +297,26 @@ if (_ammo == "zombie") then {
 	};
 };
 
-if ((_damage > 0.001) and (r_player_blood < 1000) and (!_unconscious)) then {
+if ((_damage > 0.001) and (r_player_blood < 100) and (!_unconscious)) then {
 	[_unit,300000] call fnc_usec_damageUnconscious;
 	_unit setVariable ["NORRN_unconscious", true, true];
 	r_player_timeout = round(300000);
 	r_player_unconscious = true;
 	player setVariable["medForceUpdate",true,true];
 	player setVariable ["unconsciousTime", r_player_timeout, true];
-	r_player_blood = 950;
-	titleText ["You've been put into a coma, have a partner revive you with an epi-pen or mouse wheel up to commit suicide!", "PLAIN"];
 };
-if ((_damage > 0.001) and (r_player_blood < 1000) and (_unconscious)) then {
-r_player_blood = 950;
-_unit setVariable["startcombattimer", 300];
+if ((_damage > 0.001) and (r_player_blood < 100) and (speed player <1)) then {
+r_player_blood = 95;
+};
+if ((_damage > 0.001) and (r_player_blood < 100) and (_unconscious)) then {
+	[_unit,300000] call fnc_usec_damageUnconscious;
+	_unit setVariable ["NORRN_unconscious", true, true];
+	r_player_timeout = round(300000);
+	r_player_unconscious = true;
+	player setVariable["medForceUpdate",true,true];
+	player setVariable ["unconsciousTime", r_player_timeout, true];
+r_player_blood = 95;
+_unit setVariable["startcombattimer", 1];
 };
 
 // all "HandleDamage event" functions should return the effective damage that the engine will record
