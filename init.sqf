@@ -79,7 +79,6 @@ if (isServer) then {
 
 // Run the player monitor
 if (!isDedicated) then {
-[] execVM "MattDebug.sqf";
 	//Conduct map operations
 	0 fadeSound 0;
 	waitUntil {!isNil "dayz_loadScreenMsg"};
