@@ -4,7 +4,7 @@ _unit = _array select 0;
 _medic = _array select 1;
 
 _isDead = _unit getVariable["USEC_isDead",false];
-_Bamount = 1050;
+_Bamount = 150;
 if (local _unit) then {_unit setCaptive false};
 
 if (!_isDead) then {
