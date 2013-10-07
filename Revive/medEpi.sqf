@@ -8,7 +8,7 @@ _Bamount = 1050;
 if (local _unit) then {_unit setCaptive false};
 
 if (!_isDead) then {
-	_Bamount = 1050;
+	_Bamount = 150;
 	_unit switchMove "AmovPpneMstpSnonWnonDnon_healed";
 	//no need to public broadcast the variables since this runs on every peer
 	_unit setVariable ["NORRN_unconscious", false, false];
