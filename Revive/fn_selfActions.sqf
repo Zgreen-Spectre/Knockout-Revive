@@ -44,7 +44,7 @@ _canDo = (!r_drag_sqf and !r_player_unconscious and !_onLadder);
         } else { nearDead = false;};
         if( nearDead ) then{
             if (s_player_suicide < 0) then {
-            s_player_suicide = player addaction[("<t color=""#c70000"">" + ("Suicide") +"</t>"),"scripts\player_suicide.sqf","",5,false,true,"", ""];
+            s_player_suicide = player addaction[("<t color=""#c70000"">" + ("Suicide") +"</t>"),"Revive\player_suicide.sqf","",5,false,true,"", ""];
         };
     } else {
         player removeAction s_player_suicide;
