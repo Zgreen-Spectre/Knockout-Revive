@@ -38,7 +38,19 @@ if (!isNull _nearLight) then {
 	};
 };
 _canDo = (!r_drag_sqf and !r_player_unconscious and !_onLadder);
-
+// ------------------------------------------------------------------------Spectres Suicide Start------------------------------------------------------------------------
+    if ((r_player_blood <= 100) and (r_player_unconscious)) then {
+            nearDead = true;
+        } else { nearDead = false;};
+        if( nearDead ) then{
+            if (s_player_suicide < 0) then {
+            s_player_suicide = player addaction[("<t color=""#c70000"">" + ("Suicide") +"</t>"),"scripts\player_suicide.sqf","",5,false,true,"", ""];
+        };
+    } else {
+        player removeAction s_player_suicide;
+        s_player_suicide = -1;
+    };
+// -------------------------------------------------------------------------Spectres Suicide End--------------------------------------------------------------------------
 //Grab Flare
 if (_canPickLight and !dayz_hasLight) then {
 	if (s_player_grabflare < 0) then {
